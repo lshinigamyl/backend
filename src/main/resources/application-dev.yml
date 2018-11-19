@@ -15,17 +15,16 @@ spring:
       mail.smtp.writetimeout: 5000
   jackson:
     default-property-inclusion: non-null
-    
 app:
   firebase:
     database-url: https://reserva-de-cit.firebaseio.com
-    auth-key-path: classpath:credentials/firebase_auth_key.json
+    auth-key-path: credentials/firebase_auth_key.json
   email:
     alias: Reserva de Citas - Clínica UNMSM
     plantillas:
-      confirmacion-creacion: classpath:templates/confirmacion_creacion_template.html
-      recordatorio-dia-anterior: classpath:templates/recordatorio_1_template.html
-      recordatorio-mismo-dia: classpath:templates/recordatorio_2_template.html
+      confirmacion-creacion: templates/confirmacion_creacion_template.html
+      recordatorio-dia-anterior: templates/recordatorio_1_template.html
+      recordatorio-mismo-dia: templates/recordatorio_2_template.html
   confirmaciones:
     retraso-inicial: 5000
     intervalo: 300000

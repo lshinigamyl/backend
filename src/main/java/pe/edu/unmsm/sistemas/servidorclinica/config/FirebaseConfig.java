@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
 @Configuration
 public class FirebaseConfig {
@@ -47,15 +48,22 @@ public class FirebaseConfig {
 
     @PostConstruct
     public void init() {
-        InputStream inputStream = FirebaseConfig.class.getClassLoader().getResourceAsStream(authKeyPath);
-
+    	System.out.println(authKeyPath+"");
+    	
+//        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("firebase_auth_key.json");
         try {
+        	InputStream inputStream;
+//        	inputStream = new ClassPathResource("credentials/firebase_auth_key.json").getInputStream();
+        	inputStream = FirebaseConfig.class.getClassLoader().getResourceAsStream(authKeyPath);
+        	GoogleCredentials googleCredentials = GoogleCredentials.fromStream(inputStream);
             FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(inputStream)).setDatabaseUrl(databaseUrl).build();
+                    .setCredentials(googleCredentials)
+                    .setDatabaseUrl(databaseUrl)
+                    .build();
             FirebaseApp.initializeApp(options);
         } catch (Exception e) {
+        	e.printStackTrace();
             log.error("Error al iniciar la conexion a Firebase", e);
         }
-
     }
 }
