@@ -68,7 +68,7 @@ public class TurnoServiceImpl implements TurnosService {
 
         if (idMedico!=null) {
         	Medico medico = medicosRepository.getMedico(idMedico);
-            medico.setSede(sedesRepository.getSede(medico.getIdSede()));
+            medico.setSede(sedesRepository.getSede(medico.getSede().getIdSede()));
 
             ParMedicoTurnos par = new ParMedicoTurnos();
             par.setIdMedico(medico.getIdMedico());

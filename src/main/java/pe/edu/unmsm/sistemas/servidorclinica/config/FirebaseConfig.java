@@ -47,22 +47,15 @@ public class FirebaseConfig {
 
     @PostConstruct
     public void init() {
-    	System.out.println(authKeyPath+"");
-    	
-//        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("firebase_auth_key.json");
+        InputStream inputStream = FirebaseConfig.class.getClassLoader().getResourceAsStream(authKeyPath);
+
         try {
-        	InputStream inputStream;
-//        	inputStream = new ClassPathResource("credentials/firebase_auth_key.json").getInputStream();
-        	inputStream = FirebaseConfig.class.getClassLoader().getResourceAsStream(authKeyPath);
-        	GoogleCredentials googleCredentials = GoogleCredentials.fromStream(inputStream);
             FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(googleCredentials)
-                    .setDatabaseUrl(databaseUrl)
-                    .build();
+                    .setCredentials(GoogleCredentials.fromStream(inputStream)).setDatabaseUrl(databaseUrl).build();
             FirebaseApp.initializeApp(options);
         } catch (Exception e) {
-        	e.printStackTrace();
             log.error("Error al iniciar la conexion a Firebase", e);
         }
+
     }
 }

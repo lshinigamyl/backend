@@ -15,6 +15,7 @@ spring:
       mail.smtp.writetimeout: 5000
   jackson:
     default-property-inclusion: non-null
+    
 app:
   firebase:
     database-url: https://reserva-de-cit.firebaseio.com
@@ -36,3 +37,10 @@ logging:
     pe.edu.unmsm.sistemas.servidorclinica:
       administracion: TRACE
       reservas: TRACE
+  file: appfile.log
+endpoints:
+  enabled: false
+  logfile:
+    enabled: true
+    sensitive: false
+    path: /actuator/logfile
